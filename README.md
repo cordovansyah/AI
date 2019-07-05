@@ -3,13 +3,15 @@
 Tensorflow Summary
 
 Use venv to avoid missing components during training and conversion (optional)
+```
 source ./venv/bin/activate
-
-
-IMAGE_SIZE=224
-ARCHITECTURE="mobilenet_0.50_${IMAGE_SIZE}"
+```
 
 Training Image to Tensorflow
+```IMAGE_SIZE=224
+ARCHITECTURE="mobilenet_0.50_${IMAGE_SIZE}"
+
+
 python -m scripts.retrain \
   --bottleneck_dir=tf_files/bottlenecks \
   --how_many_training_steps=500 \
@@ -20,9 +22,10 @@ python -m scripts.retrain \
   --architecture="${ARCHITECTURE}" \
   --image_dir=tf_files/foto_jagung
 
-
-Converting Tensorflow Protobuffer to TFLite 
-1. Python
+```
+## Converting Tensorflow Protobuffer to TFLite 
+### 1. Python
+```
 IMAGE_SIZE=224
 tflite_convert \
   --graph_def_file=tf_files/retrained_graph.pb \
@@ -34,8 +37,9 @@ tflite_convert \
   --output_array=final_result \
   --inference_type=FLOAT \
   --input_data_type=FLOAT
-
-2. Bazel Build
+```
+### 2. Bazel Build
+```
 bazel-bin/tensorflow/contrib/lite/toco/toco \
   - -input_format=TENSORFLOW_GRAPHDEF \
   --input_file=tf_files/restrained_graph.pb \
@@ -50,3 +54,4 @@ bazel-bin/tensorflow/contrib/lite/toco/toco \
   --std_values=128 \
   --default_ranges_min=0 \
   --default_ranges_max=6
+  ```
