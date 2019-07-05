@@ -1,17 +1,8 @@
-# RML
+# Tensorflow Script Summary for Object Detection 
 
-Tensorflow Summary
-
-Use venv to avoid missing components during training and conversion (optional)
-```
-source ./venv/bin/activate
-```
-
-Training Image to Tensorflow
+## Training Image to Tensorflow
 ```IMAGE_SIZE=224
 ARCHITECTURE="mobilenet_0.50_${IMAGE_SIZE}"
-
-
 python -m scripts.retrain \
   --bottleneck_dir=tf_files/bottlenecks \
   --how_many_training_steps=500 \
@@ -21,7 +12,6 @@ python -m scripts.retrain \
   --output_labels=tf_files/retrained_labels_jagung.txt \
   --architecture="${ARCHITECTURE}" \
   --image_dir=tf_files/foto_jagung
-
 ```
 ## Converting Tensorflow Protobuffer to TFLite 
 ### 1. Python
@@ -55,3 +45,7 @@ bazel-bin/tensorflow/contrib/lite/toco/toco \
   --default_ranges_min=0 \
   --default_ranges_max=6
   ```
+Additional Notes: Use venv to avoid missing components during training and conversion (optional)
+```
+source ./venv/bin/activate
+```
